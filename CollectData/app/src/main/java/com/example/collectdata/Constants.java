@@ -1,5 +1,10 @@
 package com.example.collectdata;
 
+import com.example.collectdata.bean.Posture;
+
+import java.util.HashSet;
+import java.util.Hashtable;
+
 public class Constants {
     // Notification channel ID
     public static final String NOTIFICATION_CHANNEL_ID = "ForegroundServiceChannelDataCollection";
@@ -7,6 +12,8 @@ public class Constants {
     public static final int DATA_COLLECT_SERVICE_ID = 188;
     public static final String ACTION_START_DATA_COLLECT_SERVICE = "startServiceDataCollection";
     public static final String ACTION_STOP_DATA_COLLECT_SERVICE = "stopServiceDataCollection";
+
+    public static final String SHARED_PREF_ID = "DataCollectionSF";
 
     public static final String TABLE_DATA = "data";
     public static final String KEY_DATA_DATE = "date";
@@ -40,4 +47,17 @@ public class Constants {
     public static final String KEY_HR_TIME = "time"; // time
     public static final String KEY_HR_VAL = "hrVal"; // Heart rate value
     public static final String KEY_HR_VAL_POSITION = "posturePosition"; // posture position while activity (0 -> 7)
+
+    static final Hashtable<String, Integer> POSTURE_VALS = new Hashtable<>();
+
+    static {
+        POSTURE_VALS.put("STILL_LYING_DOWN", 0);
+        POSTURE_VALS.put("STILL_SITTING", 1);
+        POSTURE_VALS.put("STILL_SITTING", 2);
+        POSTURE_VALS.put("STILL_STANDING", 3);
+        POSTURE_VALS.put("WALKING", 4);
+        POSTURE_VALS.put("RUNNING", 5);
+        POSTURE_VALS.put("ON_BICYCLE", 6);
+        POSTURE_VALS.put("IN_VEHICLE", 7);
+    }
 }
