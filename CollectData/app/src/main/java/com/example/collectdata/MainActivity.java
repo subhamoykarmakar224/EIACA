@@ -1,17 +1,23 @@
 package com.example.collectdata;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.collectdata.services.ForegroundDataCollection;
 
@@ -30,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.BLUETOOTH,
             Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACTIVITY_RECOGNITION
     };
 
     // Widgets
@@ -77,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
     public void btnStopService(View v) {
         btnStopComponentHelper();
         stopService(intentService);
+    }
+
+    public void btnTakeSelfie(View view) {
+        Intent intent = new Intent(context, ActivityTakeSelfie.class);
+        startActivity(intent);
     }
 
     @Override

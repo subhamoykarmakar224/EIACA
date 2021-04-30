@@ -60,4 +60,7 @@ public class Constants {
         POSTURE_VALS.put("ON_BICYCLE", 6);
         POSTURE_VALS.put("IN_VEHICLE", 7);
     }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
 }
