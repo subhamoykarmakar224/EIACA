@@ -9,7 +9,7 @@ import com.example.collectdata.db.DBHelper;
 public class SharedPreferenceControl {
 
     Context context;
-    private static DBHelper instance;
+    private static SharedPreferenceControl instance;
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
 
@@ -22,14 +22,14 @@ public class SharedPreferenceControl {
         editor = sharedPreferences.edit();
     }
 
-    public static synchronized DBHelper getInstance(Context context) {
+    public static synchronized SharedPreferenceControl getInstance(Context context) {
         if (instance == null) {
-            instance = new DBHelper(context.getApplicationContext());
+            instance = new SharedPreferenceControl(context.getApplicationContext());
         }
         return instance;
     }
 
-    public void setDate(String key, String value) {
+    public void setData(String key, String value) {
         editor.putString(key, value);
         editor.commit();
     }

@@ -1,4 +1,4 @@
-package com.example.collectdata.hractivity;
+package com.example.collectdata.collecthractivity;
 
 import android.content.Context;
 

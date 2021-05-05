@@ -14,6 +14,9 @@ public class Constants {
     public static final String ACTION_STOP_DATA_COLLECT_SERVICE = "stopServiceDataCollection";
 
     public static final String SHARED_PREF_ID = "DataCollectionSF";
+    public static final String SP_KEY_LOCATION_SERVICE = "locationservice";
+    public static final String SP_KEY_LATITUDE = "latitude";
+    public static final String SP_KEY_LONGITUDE = "longitude";
 
     public static final String TABLE_DATA = "data";
     public static final String KEY_DATA_DATE = "date";

@@ -1,50 +1,46 @@
 package com.example.collectdata.services;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.IBinder;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 import com.example.collectdata.Constants;
 import com.example.collectdata.MainActivity;
 import com.example.collectdata.R;
-import com.example.collectdata.hractivity.CollectHRActivityData;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
+import com.example.collectdata.sharedpref.SharedPreferenceControl;
 import com.google.android.gms.location.LocationServices;
 
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-public class ForegroundDataCollection extends Service {
+public class ForegroundDataCollection extends Service implements LocationListener {
     private static final String TAG = "Service :" + "ollo";
     private static final int DATA_COLLECTION_RATE = 2000;
-    private static final int POOL_SIZE = 4;
+    private static final int POOL_SIZE = 1;
+
     private static Context context;
     private boolean serviceIsRunning;
-    ThreadPoolExecutor threadPoolExecutor;
+
+    // Shared preference
+    SharedPreferenceControl spController;
 
     // Notification
     private Notification notification;
+
+    // Location
+    private LocationManager locationManager;
+    private Location lastLocation;
+    private String provider;
 
     @Nullable
     @Override
@@ -55,26 +51,40 @@ public class ForegroundDataCollection extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand() :: Start...");
+        serviceIsRunning = true;
         context = ForegroundDataCollection.this;
+        spController = SharedPreferenceControl.getInstance(context);
+
+        // Start Notification
         startNotification();
-        initializeVariables();
+
+        // Location
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();provider = locationManager.getBestProvider(criteria, false);
+        @SuppressLint("MissingPermission")
+        Location location = locationManager.getLastKnownLocation(provider);
+
+        if (location != null) {
+            Log.i(TAG, "Selected provider:: " + provider);
+            onLocationChanged(location);
+        } else {
+            Log.i(TAG, "Location not available...");
+            serviceIsRunning = false;
+        }
+
+        while(serviceIsRunning) {
+            Log.i(TAG, "Location :: " );
+        }
+
         return START_STICKY;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG, "onCreate() :: Start...");
+        Log.i(TAG, "onCreate() :: Create...");
         serviceIsRunning = false;
     }
-
-    private void initializeVariables() {
-        threadPoolExecutor = new ThreadPoolExecutor(
-                POOL_SIZE, POOL_SIZE, 10, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>()
-        );
-        threadPoolExecutor.execute(new CollectHRActivityData(context));
-    }
-
 
     /**
      * Start notification service
@@ -97,6 +107,22 @@ public class ForegroundDataCollection extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "Stopped...");
-        threadPoolExecutor.shutdown();
+        serviceIsRunning = false;
+        stopSelf();
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
     }
 }
