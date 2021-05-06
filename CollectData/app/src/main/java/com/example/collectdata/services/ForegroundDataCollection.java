@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,10 +19,12 @@ import androidx.core.app.NotificationCompat;
 import com.example.collectdata.Constants;
 import com.example.collectdata.MainActivity;
 import com.example.collectdata.R;
+import com.example.collectdata.collectlocation.CollectLocationLooper;
+import com.example.collectdata.collectlocation.CollectionLocationData;
 import com.example.collectdata.sharedpref.SharedPreferenceControl;
-import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.FusedLocationProviderClient;
 
-public class ForegroundDataCollection extends Service implements LocationListener {
+public class ForegroundDataCollection extends Service {
     private static final String TAG = "Service :" + "ollo";
     private static final int DATA_COLLECTION_RATE = 2000;
     private static final int POOL_SIZE = 1;
@@ -38,9 +39,9 @@ public class ForegroundDataCollection extends Service implements LocationListene
     private Notification notification;
 
     // Location
-    private LocationManager locationManager;
-    private Location lastLocation;
-    private String provider;
+    LocationManager locationManager;
+    CollectLocationLooper locationLooper;
+    CollectionLocationData collectionLocationData;
 
     @Nullable
     @Override
@@ -55,26 +56,15 @@ public class ForegroundDataCollection extends Service implements LocationListene
         context = ForegroundDataCollection.this;
         spController = SharedPreferenceControl.getInstance(context);
 
+        locationLooper = new CollectLocationLooper();
+        locationLooper.start();
+
+
         // Start Notification
         startNotification();
 
-        // Location
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();provider = locationManager.getBestProvider(criteria, false);
-        @SuppressLint("MissingPermission")
-        Location location = locationManager.getLastKnownLocation(provider);
-
-        if (location != null) {
-            Log.i(TAG, "Selected provider:: " + provider);
-            onLocationChanged(location);
-        } else {
-            Log.i(TAG, "Location not available...");
-            serviceIsRunning = false;
-        }
-
-        while(serviceIsRunning) {
-            Log.i(TAG, "Location :: " );
-        }
+        // Start Async Data Collection
+        startDataCollections();
 
         return START_STICKY;
     }
@@ -108,21 +98,23 @@ public class ForegroundDataCollection extends Service implements LocationListene
         super.onDestroy();
         Log.i(TAG, "Stopped...");
         serviceIsRunning = false;
+
+        // Stop loopers
+        locationLooper.looper.quit();
+        collectionLocationData.setServiceIsRunning(false);
+
         stopSelf();
     }
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
+    private void startDataCollections() {
+        // Location
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        collectionLocationData = new CollectionLocationData(
+                context, locationLooper, locationManager, 1, 1, spController
+        );
+        collectionLocationData.getLocation();
+
 
     }
 
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
-    }
 }
