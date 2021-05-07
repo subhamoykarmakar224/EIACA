@@ -15,6 +15,8 @@ import androidx.core.app.NotificationCompat;
 import com.example.collectdata.Constants;
 import com.example.collectdata.MainActivity;
 import com.example.collectdata.R;
+import com.example.collectdata.collectappusagedata.CollectAppUsageLooper;
+import com.example.collectdata.collectappusagedata.CollectAppUsageData;
 import com.example.collectdata.collectlocation.CollectLocationLooper;
 import com.example.collectdata.collectlocation.CollectionLocationData;
 import com.example.collectdata.collectweatherdata.CollectWeatherData;
@@ -44,6 +46,10 @@ public class ForegroundDataCollection extends Service {
     CollectWeatherLooper weatherLooper;
     CollectWeatherData weatherData;
 
+    // App Usage
+    CollectAppUsageLooper appUsageLooper;
+    CollectAppUsageData appUsageData;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -57,14 +63,11 @@ public class ForegroundDataCollection extends Service {
         context = ForegroundDataCollection.this;
         spController = SharedPreferenceControl.getInstance(context);
 
-        locationLooper = new CollectLocationLooper();
-        locationLooper.start();
-
-        weatherLooper = new CollectWeatherLooper();
-        weatherLooper.start();
-
         // Start Notification
         startNotification();
+
+        // Init Loopers
+        initLoopers();
 
         // Start Async Data Collection
         startDataCollections();
@@ -77,6 +80,17 @@ public class ForegroundDataCollection extends Service {
         super.onCreate();
         Log.i(TAG, "onCreate() :: Create...");
         serviceIsRunning = false;
+    }
+
+    private void initLoopers() {
+        locationLooper = new CollectLocationLooper();
+        locationLooper.start();
+
+        weatherLooper = new CollectWeatherLooper();
+        weatherLooper.start();
+
+        appUsageLooper = new CollectAppUsageLooper();
+        appUsageLooper.start();
     }
 
     /**
@@ -103,12 +117,9 @@ public class ForegroundDataCollection extends Service {
         serviceIsRunning = false;
 
         // Stop loopers
-        locationLooper.looper.quit();
-        weatherLooper.looper.quit();
+        stopDataCollectionLoopers();
 
-        locationData.setServiceIsRunning(false);
-        weatherData.setServiceIsRunning(false);
-
+        // Stop Foreground services
         stopSelf();
     }
 
@@ -123,5 +134,20 @@ public class ForegroundDataCollection extends Service {
         // Weather
         weatherData = new CollectWeatherData(context, weatherLooper);
         weatherData.getWeatherData(spController.getData(Constants.SP_KEY_LATITUDE), spController.getData(Constants.SP_KEY_LONGITUDE));
+
+        // App Usage
+        appUsageData = new CollectAppUsageData(context, appUsageLooper);
+        appUsageData.getTodaysAppUsage();
+    }
+
+    private void stopDataCollectionLoopers() {
+        locationLooper.looper.quit();
+        locationData.setServiceIsRunning(false);
+
+        weatherLooper.looper.quit();
+        weatherData.setServiceIsRunning(false);
+
+        appUsageLooper.looper.quit();
+        appUsageData.setServiceIsRunning(false);
     }
 }

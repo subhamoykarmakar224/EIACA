@@ -16,21 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.collectdata.collectappusagedata.CollectAppUsageStatistics;
 import com.example.collectdata.services.ForegroundDataCollection;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Class components
-    private static Context context;
-    Intent intentService;
-
     // permission components
     private static final int REQUEST_CODE = 11023;
+    // Class components
+    private static Context context;
     private static String[] PERMISSIONS = {
             Manifest.permission.FOREGROUND_SERVICE,
             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -45,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_BACKGROUND_LOCATION,
             Manifest.permission.PACKAGE_USAGE_STATS
     };
-
+    Intent intentService;
     // Widgets
     private Button btnStart, btnStop;
 
@@ -60,16 +53,11 @@ public class MainActivity extends AppCompatActivity {
         // Runtime permission check
         checkRuntimePermissions();
 
-        // TODO: Delete later
-        Intent intent = new Intent(context, ActivityQuestions.class);
-        startActivity(intent);
-
         // TODO :: get Weather forcast
         // TODO :: ask user to do the questions
 
         // TODO :: App Usage
-        CollectAppUsageStatistics usageStatistics = new CollectAppUsageStatistics(context);
-        usageStatistics.getTodaysAppUsage();
+
 
     }
 
@@ -113,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
         int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
                 android.os.Process.myUid(), getPackageName());
-        if(mode != AppOpsManager.MODE_ALLOWED) {
+        if (mode != AppOpsManager.MODE_ALLOWED) {
             startActivityForResult(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),
                     1610);
         }

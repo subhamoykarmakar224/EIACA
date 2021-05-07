@@ -18,6 +18,7 @@ public class Constants {
     public static final String SP_KEY_LATITUDE = "latitude";
     public static final String SP_KEY_LONGITUDE = "longitude";
     public static final String SP_KEY_MOST_RECENT_FORCAST_DATETIME = "forcastdatetime";
+    public static final String SP_KEY_MOST_RECENT_USAGE_DATA = "appusagedatetime";
 
     public static final String TABLE_DATA = "data";
     public static final String KEY_DATA_DATE = "date";
