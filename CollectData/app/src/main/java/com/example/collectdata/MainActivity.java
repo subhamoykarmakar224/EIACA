@@ -2,6 +2,7 @@ package com.example.collectdata;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,7 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.collectdata.collectappusagedata.CollectAppUsageStatistics;
 import com.example.collectdata.services.ForegroundDataCollection;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACTIVITY_RECOGNITION,
-            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+            Manifest.permission.PACKAGE_USAGE_STATS
     };
 
     // Widgets
@@ -57,8 +64,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(context, ActivityQuestions.class);
         startActivity(intent);
 
-        // Get Weather forcast
-        // Ask user to do the questions
+        // TODO :: get Weather forcast
+        // TODO :: ask user to do the questions
+
+        // TODO :: App Usage
+        CollectAppUsageStatistics usageStatistics = new CollectAppUsageStatistics(context);
+        usageStatistics.getTodaysAppUsage();
+
     }
 
     private void initializeComponents() {
@@ -79,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Check if GPS enable
         enableGPS();
+
+        // Chech if GPS Package usage enabled
+        enablePackageUsagePermission();
     }
 
     /**
@@ -91,6 +106,16 @@ public class MainActivity extends AppCompatActivity {
         if (!enabled) {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
+        }
+    }
+
+    private void enablePackageUsagePermission() {
+        AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                android.os.Process.myUid(), getPackageName());
+        if(mode != AppOpsManager.MODE_ALLOWED) {
+            startActivityForResult(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),
+                    1610);
         }
     }
 
