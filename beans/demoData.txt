@@ -1,0 +1,276 @@
+{
+  "location": {
+    "name": "Irvine",
+    "region": "California",
+    "country": "United States of America",
+    "lat": 33.64,
+    "lon": -117.83,
+    "tz_id": "America/Los_Angeles",
+    "localtime_epoch": 1620326083,
+    "localtime": "2021-05-06 11:34"
+  },
+  "current": {
+    "temp_f": 69.1,
+    "condition": {},
+    "pressure_in": 30.5,
+    "precip_mm": 0,
+    "humidity": 59,
+    "uv": 6
+  },
+  "forecast": {
+    "forecastday": [
+      {
+        "date": "2021-05-06",
+        "day": {
+          "maxtemp_f": 75.2,
+          "mintemp_f": 67.5,
+          "condition": {},
+          "uv": 10
+        },
+        "astro": {},
+        "hour": [
+          {
+            "time": "2021-05-06 00:00",
+            "temp_f": 68.5,
+            "condition": {},
+            "wind_dir": "SSW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 72,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 01:00",
+            "temp_f": 65.7,
+            "condition": {},
+            "wind_dir": "SSW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 77,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 02:00",
+            "temp_f": 62.8,
+            "condition": {},
+            "wind_dir": "S",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 83,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 03:00",
+            "temp_f": 62.4,
+            "condition": {},
+            "wind_dir": "S",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 84,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 04:00",
+            "temp_f": 61.9,
+            "condition": {},
+            "wind_dir": "S",
+            "pressure_in": 30.4,
+            "precip_mm": 0,
+            "humidity": 84,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 05:00",
+            "temp_f": 61.5,
+            "condition": {},
+            "wind_dir": "S",
+            "pressure_in": 30.4,
+            "precip_mm": 0,
+            "humidity": 85,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 06:00",
+            "temp_f": 63.9,
+            "condition": {},
+            "wind_dir": "SSW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 82,
+            "uv": 5
+          },
+          {
+            "time": "2021-05-06 07:00",
+            "temp_f": 66.2,
+            "condition": {},
+            "wind_dir": "SSW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 79,
+            "uv": 5
+          },
+          {
+            "time": "2021-05-06 08:00",
+            "temp_f": 68.5,
+            "condition": {},
+            "wind_dir": "SSW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 76,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 09:00",
+            "temp_f": 69.8,
+            "condition": {},
+            "wind_dir": "SSW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 72,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 10:00",
+            "temp_f": 70.9,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 67,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 11:00",
+            "temp_f": 72.1,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 62,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 12:00",
+            "temp_f": 72.5,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 60,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 13:00",
+            "temp_f": 72.9,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 59,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 14:00",
+            "temp_f": 73.2,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 57,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 15:00",
+            "temp_f": 72.9,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 58,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 16:00",
+            "temp_f": 72.7,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 59,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 17:00",
+            "temp_f": 72.3,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 60,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 18:00",
+            "temp_f": 71.1,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 64,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 19:00",
+            "temp_f": 69.8,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 68,
+            "uv": 6
+          },
+          {
+            "time": "2021-05-06 20:00",
+            "temp_f": 68.5,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 72,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 21:00",
+            "temp_f": 68,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 74,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 22:00",
+            "temp_f": 67.5,
+            "condition": {},
+            "wind_dir": "SW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 76,
+            "uv": 1
+          },
+          {
+            "time": "2021-05-06 23:00",
+            "temp_f": 66.9,
+            "condition": {},
+            "wind_dir": "SSW",
+            "pressure_in": 30.5,
+            "precip_mm": 0,
+            "humidity": 78,
+            "uv": 1
+          }
+        ]
+      }
+    ]
+  }
+}

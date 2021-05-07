@@ -17,6 +17,7 @@ public class Constants {
     public static final String SP_KEY_LOCATION_SERVICE = "locationservice";
     public static final String SP_KEY_LATITUDE = "latitude";
     public static final String SP_KEY_LONGITUDE = "longitude";
+    public static final String SP_KEY_MOST_RECENT_FORCAST_DATETIME = "forcastdatetime";
 
     public static final String TABLE_DATA = "data";
     public static final String KEY_DATA_DATE = "date";
@@ -65,5 +66,14 @@ public class Constants {
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    // https://www.weatherapi.com/my/
+    // http://api.weatherapi.com/v1/current.json?key=156612811a1f4ff7b83174349210605&q=33.6416431,-117.8330669&aqi=no
+    // http://api.weatherapi.com/v1/forecast.json?key=156612811a1f4ff7b83174349210605&q=33.6416431,-117.8330669&days=1&aqi=no&alerts=no
+    public static final String WEATHER_API_REPLACE_STR ="___________";
+    public static final String WEATHER_API_KEY="156612811a1f4ff7b83174349210605";
+    public static final String WEATHER_BASE_API="https://api.weatherapi.com/v1/";
+    public static final String WEATHER_NOW_API="current.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&aqi=no";
+    public static final String WEATHER_DAILY_HOURLY_FORECAST_API="forecast.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&days=1&aqi=no&alerts=no";
 
 }

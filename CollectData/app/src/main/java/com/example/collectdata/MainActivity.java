@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         // Runtime permission check
         checkRuntimePermissions();
 
+        // TODO: Delete later
+        Intent intent = new Intent(context, ActivityQuestions.class);
+        startActivity(intent);
     }
 
     private void initializeComponents() {
@@ -150,5 +153,10 @@ public class MainActivity extends AppCompatActivity {
     private void btnStopComponentHelper() {
         btnStop.setEnabled(Boolean.FALSE);
         btnStart.setEnabled(Boolean.TRUE);
+    }
+
+    public void btnLoadQuestionsActivity(View view) {
+        Intent intent = new Intent(context, ActivityQuestions.class);
+        startActivity(intent);
     }
 }

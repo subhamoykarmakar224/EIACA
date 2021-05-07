@@ -1,18 +1,14 @@
 package com.example.collectdata.services;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.IBinder;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
@@ -21,8 +17,9 @@ import com.example.collectdata.MainActivity;
 import com.example.collectdata.R;
 import com.example.collectdata.collectlocation.CollectLocationLooper;
 import com.example.collectdata.collectlocation.CollectionLocationData;
+import com.example.collectdata.collectweatherdata.CollectWeatherData;
+import com.example.collectdata.collectweatherdata.CollectWeatherLooper;
 import com.example.collectdata.sharedpref.SharedPreferenceControl;
-import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class ForegroundDataCollection extends Service {
     private static final String TAG = "Service :" + "ollo";
@@ -41,7 +38,11 @@ public class ForegroundDataCollection extends Service {
     // Location
     LocationManager locationManager;
     CollectLocationLooper locationLooper;
-    CollectionLocationData collectionLocationData;
+    CollectionLocationData locationData;
+
+    // Weather
+    CollectWeatherLooper weatherLooper;
+    CollectWeatherData weatherData;
 
     @Nullable
     @Override
@@ -59,6 +60,8 @@ public class ForegroundDataCollection extends Service {
         locationLooper = new CollectLocationLooper();
         locationLooper.start();
 
+        weatherLooper = new CollectWeatherLooper();
+        weatherLooper.start();
 
         // Start Notification
         startNotification();
@@ -101,7 +104,10 @@ public class ForegroundDataCollection extends Service {
 
         // Stop loopers
         locationLooper.looper.quit();
-        collectionLocationData.setServiceIsRunning(false);
+        weatherLooper.looper.quit();
+
+        locationData.setServiceIsRunning(false);
+        weatherData.setServiceIsRunning(false);
 
         stopSelf();
     }
@@ -109,12 +115,13 @@ public class ForegroundDataCollection extends Service {
     private void startDataCollections() {
         // Location
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        collectionLocationData = new CollectionLocationData(
+        locationData = new CollectionLocationData(
                 context, locationLooper, locationManager, 1, 1, spController
         );
-        collectionLocationData.getLocation();
+        locationData.getLocation();
 
-
+        // Weather
+        weatherData = new CollectWeatherData(context, weatherLooper);
+        weatherData.getWeatherData(spController.getData(Constants.SP_KEY_LATITUDE), spController.getData(Constants.SP_KEY_LONGITUDE));
     }
-
 }

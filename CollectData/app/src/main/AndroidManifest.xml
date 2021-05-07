@@ -9,18 +9,14 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
-    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
-
-    <!--  FEATURES  -->
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" /> <!-- FEATURES -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
-    <!--
-    HR_ACTIVITY :: https://developer.android.com/guide/topics/location/transitions
-    https://developer.android.com/reference/android/hardware/SensorManager#getOrientation(float[],%20float[])
-    -->
-
 
     <application
         android:name=".App"
@@ -30,7 +26,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CollectData">
-        <activity android:name=".ActivityTakeSelfie"></activity>
+        <activity android:name=".ActivityQuestions"></activity>
+        <activity android:name=".ActivityTakeSelfie" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

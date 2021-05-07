@@ -43,7 +43,7 @@ public class CollectionLocationData implements LocationListener {
             public void run() {
                 while(serviceIsRunning) {
                     locationManager.requestLocationUpdates(
-                            LocationManager.PASSIVE_PROVIDER,
+                            LocationManager.GPS_PROVIDER,
                             minTimeBtwUpdates,
                             minDistanceChange,
                             CollectionLocationData.this

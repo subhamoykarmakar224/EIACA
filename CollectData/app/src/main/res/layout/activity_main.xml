@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btnLoadQuestionActivity"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="@string/btnQuestions"
+        android:layout_margin="10dp"
+        android:onClick="btnLoadQuestionsActivity"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_below="@id/btnLoadQuestionActivity"
         android:padding="10dp">
 
         <Button
