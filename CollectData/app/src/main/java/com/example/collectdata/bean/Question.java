@@ -9,6 +9,9 @@ public class Question {
         return question;
     }
 
+    public Question() {
+    }
+
     public Question(String question, String options, String scores) {
         this.question = question;
         this.options = options;

@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Delete later
         Intent intent = new Intent(context, ActivityQuestions.class);
         startActivity(intent);
+
+        // Get Weather forcast
+        // Ask user to do the questions
     }
 
     private void initializeComponents() {

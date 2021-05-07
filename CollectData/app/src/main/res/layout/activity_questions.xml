@@ -45,7 +45,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnNext"
+            android:id="@+id/btnPrev"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="5dp"
@@ -53,11 +53,11 @@
             android:layout_marginEnd="2.5dp"
             android:layout_weight="1"
             android:backgroundTint="@color/purple_500"
-            android:onClick="btnClickedLoadNextQuestion"
+            android:onClick="btnClickedLoadPrevQuestion"
             android:text="@string/btnPrev" />
 
         <Button
-            android:id="@+id/btnPrevious"
+            android:id="@+id/btnNext"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="2.5dp"
@@ -65,7 +65,7 @@
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:backgroundTint="@color/purple_500"
-            android:onClick="btnClickedLoadPrevQuestion"
+            android:onClick="btnClickedLoadNextQuestion"
             android:text="@string/btnNext" />
 
     </LinearLayout>
