@@ -3,11 +3,11 @@ package com.example.collectdata.bean;
 public class AppUsageData {
     private String date;
     private String time;
-    private int duration;
+    private long duration;
     private String appName;
     private String appCategory;
 
-    public AppUsageData(String date, String time, int duration, String appName, String appCategory) {
+    public AppUsageData(String date, String time, long duration, String appName, String appCategory) {
         this.date = date;
         this.time = time;
         this.duration = duration;
@@ -31,7 +31,7 @@ public class AppUsageData {
         this.time = time;
     }
 
-    public int getDuration() {
+    public long getDuration() {
         return duration;
     }
 

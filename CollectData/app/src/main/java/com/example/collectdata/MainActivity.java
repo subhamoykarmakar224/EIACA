@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.collectdata.services.ForegroundDataCollection;
+import com.example.collectdata.sharedpref.SharedPreferenceControl;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
         // Runtime permission check
         checkRuntimePermissions();
 
-        // TODO :: get Weather forcast
+
         // TODO :: ask user to do the questions
 
-        // TODO :: App Usage
+        SharedPreferenceControl spController = new SharedPreferenceControl(this);
 
-
+        Log.i("mainactivity: ollo", "FORCAST :: " + spController.getData(Constants.SP_FORCAST_HR_2));
     }
 
     private void initializeComponents() {

@@ -9,8 +9,13 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.collectdata.Constants;
+import com.example.collectdata.bean.AppUsageData;
+import com.example.collectdata.sharedpref.SharedPreferenceControl;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -20,10 +25,12 @@ public class CollectAppUsageData {
     private Context context;
     boolean serviceIsRunning;
     CollectAppUsageLooper appUsageLooper;
+    SharedPreferenceControl spController;
 
-    public CollectAppUsageData(Context context, CollectAppUsageLooper appUsageLooper) {
+    public CollectAppUsageData(Context context, CollectAppUsageLooper appUsageLooper, SharedPreferenceControl spController) {
         this.context = context;
         this.appUsageLooper = appUsageLooper;
+        this.spController = spController;
     }
 
     public void getTodaysAppUsage() {
@@ -42,15 +49,31 @@ public class CollectAppUsageData {
     }
 
     public void getAppUsage(long startMillis, long endMillis) {
+        String dt = getStartTimeDate();
+
+        // Check if already inserted into the database then do it next time
+        if(spController.getData(Constants.SP_KEY_MOST_RECENT_USAGE_DATA).equalsIgnoreCase(dt))
+            return;
         UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         Map<String, UsageStats> usageStatsMap = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
+        CollectAppUsageDBHandler appUsageDBHandler = new CollectAppUsageDBHandler(context);
         for(Map.Entry<String, UsageStats> entry : usageStatsMap.entrySet()) {
-            Log.i(TAG, "Package :: " + entry.getKey() + " Usage :: " + entry.getValue().describeContents());
-            Log.i(TAG, "Package :: " + entry.getValue().getTotalTimeInForeground());
-            Log.i(TAG, "Package :: ------------------------------------------");
-            // TODO :: Add these data to database if not already saved into DB
-            // TODO :: Update SharedPreference last update
+//            Log.i(TAG, "Package :: " + entry.getKey() + " Usage :: " + entry.getValue().describeContents());
+//            Log.i(TAG, "Package :: " + entry.getValue().getTotalTimeInForeground());
+//            Log.i(TAG, "Package :: ------------------------------------------");
+
+            // Add these data to database
+            appUsageDBHandler.insertAppUsageData(new AppUsageData(
+                    dt, "00:00:00", // TODO :: change model
+                    entry.getValue().getTotalTimeInForeground(),
+                    entry.getKey(),
+                    "" // TODO :: get app category
+            ));
+
+
         }
+        // Update SharedPreference last update
+        spController.setData(Constants.SP_KEY_MOST_RECENT_USAGE_DATA, dt);
     }
 
     /**
@@ -63,7 +86,7 @@ public class CollectAppUsageData {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.add(Calendar.DATE, -1);
-        Log.i(TAG, "START TIME :: " + c.getTime().getTime());
+//        Log.i(TAG, "START TIME :: " + c.getTime().getTime());
         return c.getTime().getTime();
     }
 
@@ -77,8 +100,15 @@ public class CollectAppUsageData {
         c.set(Calendar.MINUTE, 59);
         c.set(Calendar.SECOND, 59);
         c.add(Calendar.DATE, -1);
-        Log.i(TAG, "END TIME :: " + c.getTime().getTime());
+//        Log.i(TAG, "END TIME :: " + c.getTime().getTime());
         return c.getTime().getTime();
+    }
+
+    private String getStartTimeDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        return s.format(new Date(cal.getTimeInMillis()));
     }
 
     public void setServiceIsRunning(boolean serviceIsRunning) {

@@ -132,11 +132,11 @@ public class ForegroundDataCollection extends Service {
         locationData.getLocation();
 
         // Weather
-        weatherData = new CollectWeatherData(context, weatherLooper);
+        weatherData = new CollectWeatherData(context, weatherLooper, spController);
         weatherData.getWeatherData(spController.getData(Constants.SP_KEY_LATITUDE), spController.getData(Constants.SP_KEY_LONGITUDE));
 
         // App Usage
-        appUsageData = new CollectAppUsageData(context, appUsageLooper);
+        appUsageData = new CollectAppUsageData(context, appUsageLooper, spController);
         appUsageData.getTodaysAppUsage();
     }
 

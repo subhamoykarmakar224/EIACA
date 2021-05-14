@@ -125,4 +125,8 @@ public class Hour {
         this.uv = uv;
     }
 
+    @Override
+    public String toString() {
+        return time + ";;" + tempF + ";;" + humidity + ";;" + precipMm;
+    }
 }

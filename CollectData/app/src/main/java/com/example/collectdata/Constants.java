@@ -20,12 +20,40 @@ public class Constants {
     public static final String SP_KEY_MOST_RECENT_FORCAST_DATETIME = "forcastdatetime";
     public static final String SP_KEY_MOST_RECENT_USAGE_DATA = "appusagedatetime";
 
+    // SharedPreference storing the current dayt forcast
+    public static final String SP_FORCAST_DATE = "forcastdate";
+    public static final String SP_FORCAST_HR_PREFIX = "forcasthour";
+    public static final String SP_FORCAST_HR_1 = "forcasthour1";
+    public static final String SP_FORCAST_HR_2 = "forcasthour2";
+    public static final String SP_FORCAST_HR_3 = "forcasthour3";
+    public static final String SP_FORCAST_HR_4 = "forcasthour4";
+    public static final String SP_FORCAST_HR_5 = "forcasthour5";
+    public static final String SP_FORCAST_HR_6 = "forcasthour6";
+    public static final String SP_FORCAST_HR_7 = "forcasthour7";
+    public static final String SP_FORCAST_HR_8 = "forcasthour8";
+    public static final String SP_FORCAST_HR_9 = "forcasthour9";
+    public static final String SP_FORCAST_HR_10 = "forcasthour10";
+    public static final String SP_FORCAST_HR_11 = "forcasthour11";
+    public static final String SP_FORCAST_HR_12 = "forcasthour12";
+    public static final String SP_FORCAST_HR_13 = "forcasthour13";
+    public static final String SP_FORCAST_HR_14 = "forcasthour14";
+    public static final String SP_FORCAST_HR_15 = "forcasthour15";
+    public static final String SP_FORCAST_HR_16 = "forcasthour16";
+    public static final String SP_FORCAST_HR_17 = "forcasthour17";
+    public static final String SP_FORCAST_HR_18 = "forcasthour18";
+    public static final String SP_FORCAST_HR_19 = "forcasthour19";
+    public static final String SP_FORCAST_HR_20 = "forcasthour20";
+    public static final String SP_FORCAST_HR_21 = "forcasthour21";
+    public static final String SP_FORCAST_HR_22 = "forcasthour22";
+    public static final String SP_FORCAST_HR_23 = "forcasthour23";
+    public static final String SP_FORCAST_HR_24 = "forcasthour24";
+
     public static final String TABLE_DATA = "data";
     public static final String KEY_DATA_DATE = "date";
     public static final String KEY_DATA_TIME = "time";
     public static final String KEY_DATA_LAT = "lat"; // Latitude
-    public static final String KEY_DATA_LNG = "lat"; // Longitude
-    public static final String KEY_DATA_TEMP = "tmp"; // Temperature at location
+    public static final String KEY_DATA_LNG = "lng"; // Longitude
+    public static final String KEY_DATA_TEMP = "temp"; // Temperature at location
     public static final String KEY_DATA_HUMIDITY = "humidity"; // Humidity at location
     public static final String KEY_DATA_RAINFALL = "rainfall"; // Rainfall at location
     public static final String KEY_DATA_EMOTION_CODE = "emotion"; // Emotion from photo
@@ -56,8 +84,7 @@ public class Constants {
     static final Hashtable<String, Integer> POSTURE_VALS = new Hashtable<>();
 
     static {
-        POSTURE_VALS.put("STILL_LYING_DOWN", 0);
-        POSTURE_VALS.put("STILL_SITTING", 1);
+        POSTURE_VALS.put("STILL_LYING_DOWN", 1);
         POSTURE_VALS.put("STILL_SITTING", 2);
         POSTURE_VALS.put("STILL_STANDING", 3);
         POSTURE_VALS.put("WALKING", 4);
@@ -76,5 +103,4 @@ public class Constants {
     public static final String WEATHER_BASE_API="https://api.weatherapi.com/v1/";
     public static final String WEATHER_NOW_API="current.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&aqi=no";
     public static final String WEATHER_DAILY_HOURLY_FORECAST_API="forecast.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&days=1&aqi=no&alerts=no";
-
 }
