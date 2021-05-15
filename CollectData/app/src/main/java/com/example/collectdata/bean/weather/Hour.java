@@ -23,13 +23,13 @@ public class Hour {
     private Double pressureIn;
     @SerializedName("precip_mm")
     @Expose
-    private Integer precipMm;
+    private Double precipMm;
     @SerializedName("humidity")
     @Expose
-    private Integer humidity;
+    private Double humidity;
     @SerializedName("uv")
     @Expose
-    private Integer uv;
+    private Double uv;
 
     /**
      * No args constructor for use in serialization
@@ -49,7 +49,7 @@ public class Hour {
      * @param windDir
      * @param pressureIn
      */
-    public Hour(String time, Double tempF, Condition__2 condition, String windDir, Double pressureIn, Integer precipMm, Integer humidity, Integer uv) {
+    public Hour(String time, Double tempF, Condition__2 condition, String windDir, Double pressureIn, Double precipMm, Double humidity, Double uv) {
         super();
         this.time = time;
         this.tempF = tempF;
@@ -101,27 +101,27 @@ public class Hour {
         this.pressureIn = pressureIn;
     }
 
-    public Integer getPrecipMm() {
+    public Double getPrecipMm() {
         return precipMm;
     }
 
-    public void setPrecipMm(Integer precipMm) {
+    public void setPrecipMm(Double precipMm) {
         this.precipMm = precipMm;
     }
 
-    public Integer getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Integer humidity) {
+    public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
 
-    public Integer getUv() {
+    public Double getUv() {
         return uv;
     }
 
-    public void setUv(Integer uv) {
+    public void setUv(Double uv) {
         this.uv = uv;
     }
 

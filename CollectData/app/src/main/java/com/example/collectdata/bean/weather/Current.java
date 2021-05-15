@@ -17,7 +17,7 @@ public class Current {
     private Double pressureIn;
     @SerializedName("precip_mm")
     @Expose
-    private Integer precipMm;
+    private Float precipMm;
     @SerializedName("humidity")
     @Expose
     private Integer humidity;
@@ -41,7 +41,7 @@ public class Current {
      * @param humidity
      * @param pressureIn
      */
-    public Current(Double tempF, Condition condition, Double pressureIn, Integer precipMm, Integer humidity, Integer uv) {
+    public Current(Double tempF, Condition condition, Double pressureIn, Float precipMm, Integer humidity, Integer uv) {
         super();
         this.tempF = tempF;
         this.condition = condition;
@@ -75,11 +75,11 @@ public class Current {
         this.pressureIn = pressureIn;
     }
 
-    public Integer getPrecipMm() {
+    public Float getPrecipMm() {
         return precipMm;
     }
 
-    public void setPrecipMm(Integer precipMm) {
+    public void setPrecipMm(Float precipMm) {
         this.precipMm = precipMm;
     }
 

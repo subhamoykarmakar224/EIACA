@@ -38,11 +38,13 @@ public class CollectAppUsageData {
         appUsageLooper.handler.post(new Runnable() {
             @Override
             public void run() {
-                getAppUsage(getStartTime(), getEndTime());
-                try {
-                    Thread.sleep(24 * 60 * 60 * 1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                while(serviceIsRunning) {
+                    getAppUsage(getStartTime(), getEndTime());
+                    try {
+                        Thread.sleep(24 * 60 * 60 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

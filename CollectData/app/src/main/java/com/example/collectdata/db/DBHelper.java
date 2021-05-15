@@ -71,10 +71,19 @@ public class DBHelper extends SQLiteOpenHelper {
                 Constants.KEY_HR_VAL_POSITION + " SHORT " +
                 ")";
 
+        final String SQL_CREATE_CALL_LOG = "CREATE TABLE IF NOT EXISTS " +
+                Constants.TABLE_CALL_HISTORY + "( " +
+                Constants.KEY_CALL_HISTORY_DATE + " TEXT, " +
+                Constants.KEY_CALL_HISTORY_TIME + " TEXT, " +
+                Constants.KEY_CALL_HISTORY_DURATION + " TEXT" +
+                ")";
+
+
         db.execSQL(SQL_CREATE_DATA_TABLE);
         db.execSQL(SQL_CREATE_APP_USAGE);
         db.execSQL(SQL_CREATE_ACTIVITY_LVL);
         db.execSQL(SQL_CREATE_APP_HR);
+        db.execSQL(SQL_CREATE_CALL_LOG);
     }
 
     @Override
@@ -83,6 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_USAGE);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_ACTIVITY);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_HR);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_CALL_HISTORY);
         onCreate(db);
     }
 }

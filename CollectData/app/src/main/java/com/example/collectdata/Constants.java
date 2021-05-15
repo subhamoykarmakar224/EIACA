@@ -19,6 +19,8 @@ public class Constants {
     public static final String SP_KEY_LONGITUDE = "longitude";
     public static final String SP_KEY_MOST_RECENT_FORCAST_DATETIME = "forcastdatetime";
     public static final String SP_KEY_MOST_RECENT_USAGE_DATA = "appusagedatetime";
+    public static final String SP_KEY_CALL_LOG_FIRST_RUN = "calllogfirstrun";
+    public static final String SP_KEY_MOST_RECENT_CALL_LOG_DATE = "mostrecentcalllog";
 
     // SharedPreference storing the current dayt forcast
     public static final String SP_FORCAST_DATE = "forcastdate";
@@ -80,6 +82,12 @@ public class Constants {
     public static final String KEY_HR_TIME = "time"; // time
     public static final String KEY_HR_VAL = "hrVal"; // Heart rate value
     public static final String KEY_HR_VAL_POSITION = "posturePosition"; // posture position while activity (0 -> 7)
+
+    public static final String TABLE_CALL_HISTORY = "CallHistoryDurations";
+    public static final String KEY_CALL_HISTORY_DATE = "calldate";
+    public static final String KEY_CALL_HISTORY_TIME = "calltimerange"; // start time with range of 1 hour
+    public static final String KEY_CALL_HISTORY_DURATION = "duration"; // duration of call in that seconds
+
 
     static final Hashtable<String, Integer> POSTURE_VALS = new Hashtable<>();
 

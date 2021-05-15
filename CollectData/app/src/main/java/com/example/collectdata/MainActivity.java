@@ -18,8 +18,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.collectdata.services.ForegroundDataCollection;
-import com.example.collectdata.sharedpref.SharedPreferenceControl;
 
+import java.util.Date;
+
+//public class MainActivity extends AppCompatActivity implements SensorEventListener {
 public class MainActivity extends AppCompatActivity {
 
     // permission components
@@ -38,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACTIVITY_RECOGNITION,
             Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-            Manifest.permission.PACKAGE_USAGE_STATS
+            Manifest.permission.PACKAGE_USAGE_STATS,
+            Manifest.permission.READ_CALL_LOG
     };
     Intent intentService;
     // Widgets
     private Button btnStart, btnStop;
+
+//    private SensorManager sensorManager;
+//    private Sensor ambLightSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +64,20 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO :: ask user to do the questions
 
-        SharedPreferenceControl spController = new SharedPreferenceControl(this);
+        // TODO :: Ambient light sensor
+//        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+//        ambLightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        Log.i("mainactivity: ollo", "FORCAST :: " + spController.getData(Constants.SP_FORCAST_HR_2));
+//        List<Sensor> devices = sensorManager.getSensorList(Sensor.TYPE_ALL);
+//
+//        for(Sensor s : devices) {
+//            Log.i("Mainactivity :: ollo :: ", s.getName() + " => " + s.getVendor());
+//        }
+
+        // 1594222219942
+//        Date date = new Date(1594222219942L);
+//        Log.i("Mainactivity : ollo", "Time :: " + date.toString());
+
     }
 
     private void initializeComponents() {
@@ -130,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        sensorManager.unregisterListener(this);
     }
 
     /**
@@ -176,5 +194,30 @@ public class MainActivity extends AppCompatActivity {
     public void btnLoadQuestionsActivity(View view) {
         Intent intent = new Intent(context, ActivityQuestions.class);
         startActivity(intent);
+    }
+
+//    @Override
+//    public void onSensorChanged(SensorEvent event) {
+//        float ambLight = event.values[0];
+//        Log.i("Mainactivity :: ollo :: ", "Light Sensor Data :: " + ambLight);
+//    }
+//
+//    @Override
+//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        sensorManager.registerListener(this,
+//                ambLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        sensorManager.unregisterListener(this);
     }
 }

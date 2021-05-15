@@ -2,11 +2,11 @@ package com.example.collectdata.collectactivitylevel;
 
 import android.content.Context;
 
-public class CollectPhysicalActivityLevel implements Runnable {
+public class CollectPhysicalActivityData implements Runnable {
 
     private Context context;
 
-    public CollectPhysicalActivityLevel(Context context) {
+    public CollectPhysicalActivityData(Context context) {
         this.context = context;
     }
 

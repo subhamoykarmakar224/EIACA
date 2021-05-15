@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CollectData</string>
+    <string name="app_name">EAICA</string>
     <string name="btnQuestions">Quiz</string>
     <string name="btnstart">START</string>
     <string name="btnstop">STOP</string>

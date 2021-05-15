@@ -17,6 +17,8 @@ import com.example.collectdata.MainActivity;
 import com.example.collectdata.R;
 import com.example.collectdata.collectappusagedata.CollectAppUsageLooper;
 import com.example.collectdata.collectappusagedata.CollectAppUsageData;
+import com.example.collectdata.collectcallusagedata.CollectCallData;
+import com.example.collectdata.collectcallusagedata.CollectCallDataLooper;
 import com.example.collectdata.collectlocation.CollectLocationLooper;
 import com.example.collectdata.collectlocation.CollectionLocationData;
 import com.example.collectdata.collectweatherdata.CollectWeatherData;
@@ -49,6 +51,10 @@ public class ForegroundDataCollection extends Service {
     // App Usage
     CollectAppUsageLooper appUsageLooper;
     CollectAppUsageData appUsageData;
+
+    // Call Usage
+    CollectCallDataLooper callDataLooper;
+    CollectCallData callData;
 
     @Nullable
     @Override
@@ -91,6 +97,9 @@ public class ForegroundDataCollection extends Service {
 
         appUsageLooper = new CollectAppUsageLooper();
         appUsageLooper.start();
+
+        callDataLooper = new CollectCallDataLooper();
+        callDataLooper.start();
     }
 
     /**
@@ -138,6 +147,10 @@ public class ForegroundDataCollection extends Service {
         // App Usage
         appUsageData = new CollectAppUsageData(context, appUsageLooper, spController);
         appUsageData.getTodaysAppUsage();
+
+        // Call Log Usage
+        callData = new CollectCallData(context, callDataLooper, spController);
+        callData.getYesterdaysCallHistory();
     }
 
     private void stopDataCollectionLoopers() {
@@ -149,5 +162,8 @@ public class ForegroundDataCollection extends Service {
 
         appUsageLooper.looper.quit();
         appUsageData.setServiceIsRunning(false);
+
+        callDataLooper.looper.quit();
+        callData.setServiceIsRunning(false);
     }
 }
