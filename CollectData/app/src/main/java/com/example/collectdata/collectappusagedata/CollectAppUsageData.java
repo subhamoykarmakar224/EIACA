@@ -26,11 +26,13 @@ public class CollectAppUsageData {
     boolean serviceIsRunning;
     CollectAppUsageLooper appUsageLooper;
     SharedPreferenceControl spController;
+    CollectAppUsageDBHandler appUsageDBHandler;
 
     public CollectAppUsageData(Context context, CollectAppUsageLooper appUsageLooper, SharedPreferenceControl spController) {
         this.context = context;
         this.appUsageLooper = appUsageLooper;
         this.spController = spController;
+        appUsageDBHandler = new CollectAppUsageDBHandler(context);
     }
 
     public void getTodaysAppUsage() {
@@ -58,7 +60,6 @@ public class CollectAppUsageData {
             return;
         UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         Map<String, UsageStats> usageStatsMap = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
-        CollectAppUsageDBHandler appUsageDBHandler = new CollectAppUsageDBHandler(context);
         for(Map.Entry<String, UsageStats> entry : usageStatsMap.entrySet()) {
 //            Log.i(TAG, "Package :: " + entry.getKey() + " Usage :: " + entry.getValue().describeContents());
 //            Log.i(TAG, "Package :: " + entry.getValue().getTotalTimeInForeground());

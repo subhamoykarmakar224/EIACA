@@ -57,6 +57,7 @@ public class AppUsageData {
 
     @Override
     public String toString() {
+//        return date + ", " + time + ", " + duration + "," + appName + ", " + appCategory + "";
         return "AppUsageData{" +
                 "date='" + date + '\'' +
                 ", time='" + time + '\'' +

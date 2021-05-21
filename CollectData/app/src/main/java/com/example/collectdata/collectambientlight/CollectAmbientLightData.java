@@ -39,10 +39,12 @@ public class CollectAmbientLightData extends Activity implements SensorEventList
     @Override
     protected void onResume() {
         super.onResume();
+        sensorManager.registerListener(this, ambLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        sensorManager.unregisterListener(this);
     }
 }

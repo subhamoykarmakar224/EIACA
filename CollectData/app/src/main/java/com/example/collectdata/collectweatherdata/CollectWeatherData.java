@@ -106,7 +106,7 @@ public class CollectWeatherData {
             int cnt = 0;
             for(Hour h : weather.getForecast().getForecastday().get(0).getHour()) {
                 // Format :: 2021-05-14 00:00;;61.7;;82;;0
-                Log.i(TAG, h.toString());
+//                Log.i(TAG, h.toString());
                 spController.setData(FORECAST_KEYS[cnt], h.toString());
                 cnt += 1;
             }

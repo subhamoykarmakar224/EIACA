@@ -6,6 +6,11 @@ import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -17,9 +22,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.collectdata.bean.AppUsageData;
+import com.example.collectdata.bean.CallHistory;
+import com.example.collectdata.bean.UserActivity;
+import com.example.collectdata.collectactivitylevel.CollectPhysicalActivityDBHandler;
+import com.example.collectdata.collectambientlight.CollectAmbientLightData;
+import com.example.collectdata.collectappusagedata.CollectAppUsageDBHandler;
+import com.example.collectdata.collectcallusagedata.CollectCallDataDBHandler;
+import com.example.collectdata.db.DBHelper;
 import com.example.collectdata.services.ForegroundDataCollection;
+import com.example.collectdata.sharedpref.SharedPreferenceControl;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 //public class MainActivity extends AppCompatActivity implements SensorEventListener {
 public class MainActivity extends AppCompatActivity {
@@ -47,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
     // Widgets
     private Button btnStart, btnStop;
 
-//    private SensorManager sensorManager;
-//    private Sensor ambLightSensor;
+    private SensorManager sensorManager;
+    private Sensor ambLightSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +81,55 @@ public class MainActivity extends AppCompatActivity {
         // TODO :: ask user to do the questions
 
         // TODO :: Ambient light sensor
-//        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+
+        // TODO :: Delete all ocde below
+//        SharedPreferenceControl spControl = new SharedPreferenceControl(context);
+//         -------------- PHYSICAL ACTIVITY --------------
+//        CollectPhysicalActivityDBHandler phyDBHandler = new CollectPhysicalActivityDBHandler(context);
+//        List<UserActivity> userActivityHistory = phyDBHandler.getActivityData("2021-05-19");
+//        Log.i("Mainactivity::ollo", "--------------------------------------------------------------");
+//        for(UserActivity u : userActivityHistory) {
+//            Log.i("Mainactivity::ollo", u.toString());
+//        }
+//        Log.i("Mainactivity::ollo", "--------------------------------------------------------------");
+
+        // -------------- AMBIENT LIGHT --------------
+//        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 //        ambLightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-//        List<Sensor> devices = sensorManager.getSensorList(Sensor.TYPE_ALL);
-//
-//        for(Sensor s : devices) {
-//            Log.i("Mainactivity :: ollo :: ", s.getName() + " => " + s.getVendor());
+        // -------------- APP USAGE DATA --------------
+//        CollectAppUsageDBHandler appUsageDBHandler = new CollectAppUsageDBHandler(context);
+//        List<AppUsageData> appUsageData = appUsageDBHandler.getAppUsageData("2021-05-18");
+//        Log.i("Mainactivity::ollo", "--------------------------------------------------------------");
+//        for(AppUsageData u : appUsageData) {
+//            Log.i("Mainactivity::ollo", u.toString());
 //        }
+//        Log.i("Mainactivity::ollo", "--------------------------------------------------------------");
 
-        // 1594222219942
-//        Date date = new Date(1594222219942L);
-//        Log.i("Mainactivity : ollo", "Time :: " + date.toString());
+        // -------------- CALL USAGE DATA --------------
+//        CollectCallDataDBHandler callDataDBHandler = new CollectCallDataDBHandler(context);
+//        List<CallHistory> callHistories = callDataDBHandler.getCallDurationHistory(
+//                String.valueOf(getStartTime("2020-08-02".split("-")))
+//        );
+//        Log.i("Mainactivity::ollo", "--------------------------------------------------------------");
+//        for(CallHistory u : callHistories) {
+//
+//            Log.i("Mainactivity::ollo", u.toString());
+//        }
+//        Log.i("Mainactivity::ollo", "--------------------------------------------------------------");
 
+    }
+
+    private long getStartTime(String [] date) {
+        Calendar c = Calendar.getInstance();
+//        c.setTime(new Date());
+        c.set(Calendar.DATE, Integer.parseInt(date[2]));
+        c.set(Calendar.MONTH, Integer.parseInt(date[1]));
+        c.set(Calendar.YEAR, Integer.parseInt(date[0]));
+        c.set(Calendar.HOUR, 12);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        return c.getTime().getTime();
     }
 
     private void initializeComponents() {
@@ -148,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        sensorManager.unregisterListener(this);
+        DBHelper.getInstance(context).close();
     }
 
     /**
@@ -210,8 +263,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        sensorManager.registerListener(this,
-//                ambLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        sensorManager.registerListener(this, ambLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 

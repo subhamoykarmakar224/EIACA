@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Constants.KEY_DATA_TIME + " TEXT, " +
                 Constants.KEY_DATA_LAT + " TEXT, " +
                 Constants.KEY_DATA_LNG + " TEXT, " +
-                Constants.KEY_DATA_TEMP + " SHORT, " +
+//                Constants.KEY_DATA_TEMP + " INT, " +
                 Constants.KEY_DATA_HUMIDITY + " SHORT, " +
                 Constants.KEY_DATA_RAINFALL + " SHORT, " +
                 Constants.KEY_DATA_EMOTION_CODE + " SHORT, " +
@@ -55,11 +55,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 ")";
 
         final String SQL_CREATE_ACTIVITY_LVL = "CREATE TABLE IF NOT EXISTS " +
-                Constants.TABLE_APP_ACTIVITY + "( " +
+                Constants.TABLE_USER_ACTIVITY + "( " +
                 Constants.KEY_ACTIVITY_DATE + " TEXT, " +
                 Constants.KEY_ACTIVITY_TIME + " TEXT, " +
-                Constants.KEY_ACTIVITY_DURATION + " INTEGER, " +
-                Constants.KEY_ACTIVITY_ID + " TEXT " +
+                Constants.KEY_DATA_LAT + " TEXT, " +
+                Constants.KEY_DATA_LNG + " TEXT, " +
+                Constants.KEY_ACTIVITY_ACTIVITY_CODE + " TEXT " +
                 ")";
 
         final String SQL_CREATE_APP_HR = "CREATE TABLE IF NOT EXISTS " +
@@ -90,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_DATA);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_USAGE);
-        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_ACTIVITY);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_ACTIVITY);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_HR);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_CALL_HISTORY);
         onCreate(db);

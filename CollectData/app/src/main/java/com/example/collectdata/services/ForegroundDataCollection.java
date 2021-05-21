@@ -15,6 +15,8 @@ import androidx.core.app.NotificationCompat;
 import com.example.collectdata.Constants;
 import com.example.collectdata.MainActivity;
 import com.example.collectdata.R;
+import com.example.collectdata.collectactivitylevel.CollectPhysicalActivityData;
+import com.example.collectdata.collectactivitylevel.CollectPhysicalActivityLooper;
 import com.example.collectdata.collectappusagedata.CollectAppUsageLooper;
 import com.example.collectdata.collectappusagedata.CollectAppUsageData;
 import com.example.collectdata.collectcallusagedata.CollectCallData;
@@ -55,6 +57,10 @@ public class ForegroundDataCollection extends Service {
     // Call Usage
     CollectCallDataLooper callDataLooper;
     CollectCallData callData;
+
+    // Physical Activity
+    CollectPhysicalActivityLooper physicalActivityLooper;
+    CollectPhysicalActivityData physicalActivityData;
 
     @Nullable
     @Override
@@ -100,6 +106,9 @@ public class ForegroundDataCollection extends Service {
 
         callDataLooper = new CollectCallDataLooper();
         callDataLooper.start();
+
+        physicalActivityLooper = new CollectPhysicalActivityLooper();
+        physicalActivityLooper.start();
     }
 
     /**
@@ -151,6 +160,10 @@ public class ForegroundDataCollection extends Service {
         // Call Log Usage
         callData = new CollectCallData(context, callDataLooper, spController);
         callData.getYesterdaysCallHistory();
+
+        // Physical activity
+        physicalActivityData = new CollectPhysicalActivityData(context, physicalActivityLooper, spController);
+        physicalActivityData.startCollectingPhysicalActivity();
     }
 
     private void stopDataCollectionLoopers() {
@@ -165,5 +178,8 @@ public class ForegroundDataCollection extends Service {
 
         callDataLooper.looper.quit();
         callData.setServiceIsRunning(false);
+
+        physicalActivityLooper.looper.quit();
+        physicalActivityData.setServiceIsRunning(false);
     }
 }

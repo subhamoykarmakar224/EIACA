@@ -3,14 +3,16 @@ package com.example.collectdata.bean;
 public class UserActivity {
     private String date;
     private String time;
-    private int duration;
-    private String activityId;
+    private String latitude;
+    private String longitude;
+    private String activity;
 
-    public UserActivity(String date, String time, int duration, String activityId) {
+    public UserActivity(String date, String time, String latitude, String longitude, String activity) {
         this.date = date;
         this.time = time;
-        this.duration = duration;
-        this.activityId = activityId;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.activity = activity;
     }
 
     public String getDate() {
@@ -29,29 +31,39 @@ public class UserActivity {
         this.time = time;
     }
 
-    public int getDuration() {
-        return duration;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getActivityId() {
-        return activityId;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setActivityId(String activityId) {
-        this.activityId = activityId;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 
     @Override
     public String toString() {
-        return "Activity{" +
-                "date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                ", duration=" + duration +
-                ", activityId='" + activityId + '\'' +
-                '}';
+        return date + ", " + time + ", " + latitude + ", " + longitude + ", " + activity;
+//        return "UserActivity{" +
+//                "date='" + date + '\'' +
+//                ", time='" + time + '\'' +
+//                ", latitude='" + latitude + '\'' +
+//                ", longitude='" + longitude + '\'' +
+//                ", activity='" + activity + '\'' +
+//                '}';
     }
 }

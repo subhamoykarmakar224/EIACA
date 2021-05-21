@@ -21,6 +21,12 @@ public class Constants {
     public static final String SP_KEY_MOST_RECENT_USAGE_DATA = "appusagedatetime";
     public static final String SP_KEY_CALL_LOG_FIRST_RUN = "calllogfirstrun";
     public static final String SP_KEY_MOST_RECENT_CALL_LOG_DATE = "mostrecentcalllog";
+    public static final String SP_KEY_CURRENT_ACTIVITY = "currentactivitycode";
+
+    // Activity Tracker Constants
+    public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
+    public static final long DETECTION_INTERVAL_IN_MILLISECONDS = 30 * 1000;
+    public static final int CONFIDENCE = 70;
 
     // SharedPreference storing the current dayt forcast
     public static final String SP_FORCAST_DATE = "forcastdate";
@@ -70,11 +76,12 @@ public class Constants {
     public static final String KEY_APP_NAME = "appname"; // App in use
     public static final String KEY_APP_CATEGORY = "appcategory"; // App category
 
-    public static final String TABLE_APP_ACTIVITY = "Activity";
+    public static final String TABLE_USER_ACTIVITY = "Activity";
     public static final String KEY_ACTIVITY_DATE = "date";
     public static final String KEY_ACTIVITY_TIME = "time";
-    public static final String KEY_ACTIVITY_DURATION = "duration"; // duration of activity
-    public static final String KEY_ACTIVITY_ID = "activityid"; // activity id
+    public static final String KEY_ACTIVITY_ACTIVITY_CODE = "activitytype"; // duration of activity
+//    public static final String KEY_ACTIVITY_DURATION = "duration"; // duration of activity
+//    public static final String KEY_ACTIVITY_ID = "activityid"; // activity id
 
     public static final String TABLE_APP_HR = "HeartBeatHistory";
     public static final String KEY_HR_ACTIVITY_ID = "activityid"; // activity

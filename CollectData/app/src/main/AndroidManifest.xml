@@ -49,9 +49,15 @@
         </activity>
 
         <service
+            android:name=".collectactivitylevel.DetectActivityIntentService"
+            android:exported="false"
+            />
+
+        <service
             android:name=".services.ForegroundDataCollection"
             android:enabled="true"
             android:exported="false" />
+
     </application>
 
 </manifest>

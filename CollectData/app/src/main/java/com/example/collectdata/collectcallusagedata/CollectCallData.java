@@ -16,11 +16,11 @@ import java.util.HashMap;
 public class CollectCallData {
 
     private static final String TAG = "CollectCallData :" + "ollo";
-    private Context context;
     boolean serviceIsRunning;
     CollectCallDataLooper callDataLooper;
     SharedPreferenceControl spController;
     HashMap<String, Integer> callDurationHistory;
+    private Context context;
 
     public CollectCallData(Context context, CollectCallDataLooper callDataLooper, SharedPreferenceControl spController) {
         this.context = context;
@@ -34,7 +34,7 @@ public class CollectCallData {
         callDataLooper.handler.post(new Runnable() {
             @Override
             public void run() {
-                while(serviceIsRunning) {
+                while (serviceIsRunning) {
                     getCallUsage();
                     try {
                         Thread.sleep(24 * 60 * 60 * 1000);
@@ -48,8 +48,8 @@ public class CollectCallData {
 
     private void initializeHashMapForDuration() {
         callDurationHistory = new HashMap<>();
-        for(int i = 0; i < 24 ;i ++) {
-            if(i < 10) {
+        for (int i = 0; i < 24; i++) {
+            if (i < 10) {
                 callDurationHistory.put("0".concat(String.valueOf(i)), 0);
             } else {
                 callDurationHistory.put(String.valueOf(i), 0);
@@ -59,10 +59,10 @@ public class CollectCallData {
 
     public void getCallUsage() {
         Cursor c = null;
-        if(spController.getData(Constants.SP_KEY_MOST_RECENT_CALL_LOG_DATE).equals(String.valueOf(getEndTime())))
+        if (spController.getData(Constants.SP_KEY_MOST_RECENT_CALL_LOG_DATE).equals(String.valueOf(getEndTime())))
             return;
 
-        if(!spController.getData(Constants.SP_KEY_CALL_LOG_FIRST_RUN).equals("1")) { // first run
+        if (!spController.getData(Constants.SP_KEY_CALL_LOG_FIRST_RUN).equals("1")) { // first run
             Log.i(TAG, "Getting All Call Data...");
             c = context.getContentResolver().query(
                     CallLog.Calls.CONTENT_URI, null,
@@ -77,21 +77,21 @@ public class CollectCallData {
             c = context.getContentResolver().query(
                     CallLog.Calls.CONTENT_URI, null,
                     CallLog.Calls.DATE + " between ? and ? ",
-                    new String[]{ String.valueOf(getStartTime()), String.valueOf(getEndTime())},
+                    new String[]{String.valueOf(getStartTime()), String.valueOf(getEndTime())},
                     CallLog.Calls.DATE + " ASC"
             );
         }
         Log.i(TAG, "No of Calls: " + c.getCount());
 
 //        String name= c.getString(c.getColumnIndex(CallLog.Calls.CACHED_NAME));// name
-        while(c.moveToNext()) {
+        while (c.moveToNext()) {
             String phNumber = c.getString(c.getColumnIndex(CallLog.Calls.NUMBER));
             String callType = c.getString(c.getColumnIndex(CallLog.Calls.TYPE));
             String callDate = c.getString(c.getColumnIndex(CallLog.Calls.DATE));
             String callDuration = c.getString(c.getColumnIndex(CallLog.Calls.DURATION));
             // CALL DATA:: +15857293531, 1, 2021/02/06 17:38, 3292
 //            Log.i(TAG, "CALL DATA:: " + phNumber + ", " + callType + ", " + convertEpochToDateTimre(callDate) + ", " + callDuration);
-            if(callType.equalsIgnoreCase("1") || callType.equalsIgnoreCase("2")) {
+            if (callType.equalsIgnoreCase("1") || callType.equalsIgnoreCase("2")) {
                 String hr = convertEpochToDateTimre(callDate).split(" ")[1];
                 hr = hr.substring(0, hr.indexOf(":"));
                 callDurationHistory.put(hr, callDurationHistory.get(hr) + Integer.parseInt(callDuration));
@@ -124,7 +124,7 @@ public class CollectCallData {
         c.set(Calendar.HOUR, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
-        c.add(Calendar.DATE, -100);
+        c.add(Calendar.DATE, -1);
 //        Log.i(TAG, "START TIME :: " + c.getTime().getTime());
         return c.getTime().getTime();
     }
@@ -138,7 +138,7 @@ public class CollectCallData {
         c.set(Calendar.HOUR, 23);
         c.set(Calendar.MINUTE, 59);
         c.set(Calendar.SECOND, 59);
-        c.add(Calendar.DATE, -100);
+        c.add(Calendar.DATE, -1);
 //        Log.i(TAG, "END TIME :: " + c.getTime().getTime());
         return c.getTime().getTime();
     }

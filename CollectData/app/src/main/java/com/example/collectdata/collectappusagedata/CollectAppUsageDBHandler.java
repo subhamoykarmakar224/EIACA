@@ -32,8 +32,6 @@ public class CollectAppUsageDBHandler {
 
         db.insert(Constants.TABLE_APP_USAGE, null, contentValues);
 
-        db.close();
-
     }
 
     public List<AppUsageData> getAppUsageData(String date) {
@@ -63,7 +61,6 @@ public class CollectAppUsageDBHandler {
             );
         }
         cursor.close();
-        db.close();
 
         return appUsageDataList;
     }
