@@ -2,10 +2,8 @@ package com.example.collectdata.collectactivitylevel;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.collectdata.Constants;
 import com.example.collectdata.sharedpref.SharedPreferenceControl;

@@ -4,27 +4,21 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.collectdata.Constants;
 import com.example.collectdata.bean.UserActivity;
-import com.example.collectdata.services.ForegroundDataCollection;
+import com.example.collectdata.services.foreground.ForegroundDataCollection;
 import com.example.collectdata.sharedpref.SharedPreferenceControl;
 import com.google.android.gms.location.ActivityRecognitionClient;
-import com.google.android.gms.location.ActivityTransition;
-import com.google.android.gms.location.ActivityTransitionRequest;
-import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class CollectPhysicalActivityData extends ForegroundDataCollection {
 

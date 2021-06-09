@@ -1,0 +1,24 @@
+How many relatives do you see or hear from at least once a month?
+none;one;two;three or five;nine or more
+0;1;2;3;4;5
+;;
+How many relatives do you feel at ease with that you can talk about private matters?
+none;one;two;three or five;nine or more
+0;1;2;3;4;5
+;;
+How many relatives do you feel close to such that you could call on them for help?
+none;one;two;three or five;nine or more
+0;1;2;3;4;5
+;;
+How many of your friends do you see or hear from at least once a month?
+none;one;two;three or five;nine or more
+0;1;2;3;4;5
+;;
+How many friends do you feel at ease with that you can talk about private matters?
+none;one;two;three or five;nine or more
+0;1;2;3;4;5
+;;
+How many friends do you feel close to such that you could call on them for help?
+none;one;two;three or five;nine or more
+0;1;2;3;4;5
+;;

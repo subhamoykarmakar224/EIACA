@@ -9,11 +9,15 @@ public class Constants {
     // Notification channel ID
     public static final String NOTIFICATION_CHANNEL_ID = "ForegroundServiceChannelDataCollection";
 
+    public static final int RESOLUTION_4 = 4;
+    public static final double DEVIATION_THRESH = 0.4;
+
     public static final int DATA_COLLECT_SERVICE_ID = 188;
     public static final String ACTION_START_DATA_COLLECT_SERVICE = "startServiceDataCollection";
     public static final String ACTION_STOP_DATA_COLLECT_SERVICE = "stopServiceDataCollection";
 
     public static final String SHARED_PREF_ID = "DataCollectionSF";
+    public static final String SP_KEY_MY_UNAME = "myname";
     public static final String SP_KEY_LOCATION_SERVICE = "locationservice";
     public static final String SP_KEY_LATITUDE = "latitude";
     public static final String SP_KEY_LONGITUDE = "longitude";
@@ -76,6 +80,13 @@ public class Constants {
     public static final String KEY_APP_NAME = "appname"; // App in use
     public static final String KEY_APP_CATEGORY = "appcategory"; // App category
 
+    public static final String TABLE_UNIQUE_APP = "uniqueapps";
+    public static final String KEY_UNIQUE_APP_PACKAGE = "pkgName";
+    public static final String KEY_UNIQUE_APP_CODE = "pkgCode";
+    public static final String KEY_UNIQUE_APP_THETA0 = "theta0";
+    public static final String KEY_UNIQUE_APP_THETA1 = "theta1";
+    public static final String KEY_UNIQUE_APP_SESSIONAL = "St";
+
     public static final String TABLE_USER_ACTIVITY = "Activity";
     public static final String KEY_ACTIVITY_DATE = "date";
     public static final String KEY_ACTIVITY_TIME = "time";
@@ -94,6 +105,10 @@ public class Constants {
     public static final String KEY_CALL_HISTORY_DATE = "calldate";
     public static final String KEY_CALL_HISTORY_TIME = "calltimerange"; // start time with range of 1 hour
     public static final String KEY_CALL_HISTORY_DURATION = "duration"; // duration of call in that seconds
+
+    public static final String TABLE_NOTIFICATION = "Notification";
+    public static final String KEY_NOTIFICATION_UNAME = "uname";
+    public static final String KEY_NOTIFICATION_DATE = "date";
 
 
     static final Hashtable<String, Integer> POSTURE_VALS = new Hashtable<>();
@@ -118,4 +133,7 @@ public class Constants {
     public static final String WEATHER_BASE_API="https://api.weatherapi.com/v1/";
     public static final String WEATHER_NOW_API="current.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&aqi=no";
     public static final String WEATHER_DAILY_HOURLY_FORECAST_API="forecast.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&days=1&aqi=no&alerts=no";
+
+    public static final String URI_API_PRODUCER ="http://192.168.1.5:8091/produce/message";
+    public static final String URI_API_CONSUMER="http://192.168.1.5:8091/consume/message";
 }

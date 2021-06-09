@@ -57,6 +57,7 @@ public class KMeans {
     }
 
     /**
+     * TODO :: Change this later to group data into proper clusters instead of random centroid
      * Generate the random centroid for the start
      * @param records
      * @param k
@@ -101,9 +102,10 @@ public class KMeans {
     private static Centroid nearestCentroid(Record record, List<Centroid> centroids, Distance distance) {
         double minimumDistance = Double.MAX_VALUE;
         Centroid nearest = null;
+        double currentDistance = 0.0;
 
         for (Centroid centroid : centroids) {
-            double currentDistance = distance.calculate(record.getFeatures(), centroid.getCoordinates());
+            currentDistance = distance.calculate(record.getFeatures(), centroid.getCentroid());
 
             if (currentDistance < minimumDistance) {
                 minimumDistance = currentDistance;
@@ -142,7 +144,7 @@ public class KMeans {
             return centroid;
         }
 
-        Map<String, Double> average = centroid.getCoordinates();
+        Map<String, Double> average = centroid.getCentroid();
         records.stream().flatMap(e -> e.getFeatures().keySet().stream())
                 .forEach(k -> average.put(k, 0.0));
 
@@ -165,8 +167,5 @@ public class KMeans {
     private static List<Centroid> relocateCentroids(Map<Centroid, List<Record>> clusters) {
         return clusters.entrySet().stream().map(e -> average(e.getKey(), e.getValue())).collect(toList());
     }
-
-
-
 
 }

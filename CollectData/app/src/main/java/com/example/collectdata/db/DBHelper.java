@@ -54,6 +54,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 Constants.KEY_APP_CATEGORY + " SHORT " +
                 ")";
 
+        final String SQL_CREATE_UNIQUE_APPS = "CREATE TABLE IF NOT EXISTS " +
+                Constants.TABLE_UNIQUE_APP + "( " +
+                Constants.KEY_UNIQUE_APP_PACKAGE + " TEXT, " +
+                Constants.KEY_UNIQUE_APP_CODE + " SHORT PRIMARY KEY," +
+                Constants.KEY_UNIQUE_APP_THETA0 + " SHORT default 0, " +
+                Constants.KEY_UNIQUE_APP_THETA1 + " SHORT default 0," +
+                Constants.KEY_UNIQUE_APP_SESSIONAL + " TEXT" +
+                ")";
+
+
         final String SQL_CREATE_ACTIVITY_LVL = "CREATE TABLE IF NOT EXISTS " +
                 Constants.TABLE_USER_ACTIVITY + "( " +
                 Constants.KEY_ACTIVITY_DATE + " TEXT, " +
@@ -79,21 +89,31 @@ public class DBHelper extends SQLiteOpenHelper {
                 Constants.KEY_CALL_HISTORY_DURATION + " TEXT" +
                 ")";
 
+        final String SQL_CREATE_NOTIFICATION = "CREATE TABLE IF NOT EXISTS " +
+                Constants.TABLE_NOTIFICATION + "( " +
+                Constants.KEY_NOTIFICATION_UNAME + " INT PRIMARY KEY AUTOINCREMENT, " +
+                Constants.KEY_NOTIFICATION_UNAME + " TEXT, " +
+                Constants.KEY_NOTIFICATION_DATE + " TEXT " +
+                ")";
 
+        db.execSQL(SQL_CREATE_UNIQUE_APPS);
         db.execSQL(SQL_CREATE_DATA_TABLE);
         db.execSQL(SQL_CREATE_APP_USAGE);
         db.execSQL(SQL_CREATE_ACTIVITY_LVL);
         db.execSQL(SQL_CREATE_APP_HR);
         db.execSQL(SQL_CREATE_CALL_LOG);
+        db.execSQL(SQL_CREATE_NOTIFICATION);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_DATA);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_USAGE);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_UNIQUE_APP);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_ACTIVITY);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_HR);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_CALL_HISTORY);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_NOTIFICATION);
         onCreate(db);
     }
 }

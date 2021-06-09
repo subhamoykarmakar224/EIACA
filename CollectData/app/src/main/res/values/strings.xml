@@ -7,4 +7,9 @@
     <string name="btnRetake">Retake</string>
     <string name="btnNext">Next</string>
     <string name="btnPrev">Prev</string>
+    <string name="btnTrainModels">Train Models</string>
+    <string name="btnEvaluateUser">Evaluate User</string>
+    <string name="btnShowNotifications">Notifications</string>
+    <string name="hint_username">Please enter your name that your friends call you by?</string>
+    <string name="username">Your name...</string>
 </resources>

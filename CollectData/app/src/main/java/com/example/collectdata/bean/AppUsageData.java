@@ -5,9 +5,9 @@ public class AppUsageData {
     private String time;
     private long duration;
     private String appName;
-    private String appCategory;
+    private int appCategory;
 
-    public AppUsageData(String date, String time, long duration, String appName, String appCategory) {
+    public AppUsageData(String date, String time, long duration, String appName, int appCategory) {
         this.date = date;
         this.time = time;
         this.duration = duration;
@@ -47,11 +47,11 @@ public class AppUsageData {
         this.appName = appName;
     }
 
-    public String getAppCategory() {
+    public int getAppCategory() {
         return appCategory;
     }
 
-    public void setAppCategory(String appCategory) {
+    public void setAppCategory(int appCategory) {
         this.appCategory = appCategory;
     }
 

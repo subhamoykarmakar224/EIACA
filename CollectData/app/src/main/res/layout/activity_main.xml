@@ -6,20 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnLoadQuestionActivity"
+<!--    <Button-->
+<!--        android:id="@+id/btnLoadQuestionActivity"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:text="@string/btnQuestions"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:onClick="btnLoadQuestionsActivity"-->
+<!--        />-->
+    <TextView
+        android:id="@+id/textViewWelcome"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="@string/btnQuestions"
-        android:layout_margin="10dp"
-        android:onClick="btnLoadQuestionsActivity"
+        android:layout_height="wrap_content"
+        android:text="Hi"
+        android:textSize="30dp"
+        android:padding="20dp"
         />
 
     <LinearLayout
+        android:id="@+id/linearLayoutMainControl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/btnLoadQuestionActivity"
+        android:layout_below="@id/textViewWelcome"
         android:padding="10dp">
 
         <Button
@@ -42,17 +51,55 @@
             />
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnTakeSelfie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/material_green"
-        android:src="@drawable/ic_baseline_photo_camera_24"
-        app:tint="@color/white"
-        android:onClick="btnTakeSelfie"
+    <Button
+        android:id="@+id/btnStartTraining"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/linearLayoutMainControl"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/btnTrainModels"
+        android:onClick="onClickBtnTrainModel"
         />
+
+    <Button
+        android:id="@+id/btnEvaluateUserActivity"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/btnStartTraining"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/btnEvaluateUser"
+        android:onClick="onClickBtnEvaluateUser"
+        />
+
+    <Button
+        android:id="@+id/btnShowNotification"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/btnEvaluateUserActivity"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/btnShowNotifications"
+        android:onClick="onClickBtnShowNotifications"
+        />
+
+
+
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/btnTakeSelfie"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="44dp"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:backgroundTint="@color/material_green"-->
+<!--        android:onClick="btnTakeSelfie"-->
+<!--        android:src="@drawable/ic_baseline_photo_camera_24"-->
+<!--        app:tint="@color/white" />-->
 
 </RelativeLayout>

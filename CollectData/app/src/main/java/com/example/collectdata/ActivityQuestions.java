@@ -2,6 +2,8 @@ package com.example.collectdata;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,18 +11,24 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.collectdata.bean.Question;
+import com.example.collectdata.services.network.SendDataToServer;
+import com.example.collectdata.sharedpref.SharedPreferenceControl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ActivityQuestions extends AppCompatActivity implements View.OnClickListener {
+
+    // Lubben Scale Question:: https://www.brandeis.edu/roybal/docs/LSNS_website_PDF.pdf
+    // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6199213/
 
     private static final String TAG = "ActQuestions :" + "ollo";
 
@@ -35,6 +43,8 @@ public class ActivityQuestions extends AppCompatActivity implements View.OnClick
     int currentScore = 0;
     int [] scoreTracking;
 
+    SharedPreferenceControl spControl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +58,8 @@ public class ActivityQuestions extends AppCompatActivity implements View.OnClick
         questionCount = 0;
         questionList = new ArrayList<>();
 
+        spControl = new SharedPreferenceControl(this);
+
         // Get questions from the file
         getQuestionDetails();
 
@@ -55,10 +67,9 @@ public class ActivityQuestions extends AppCompatActivity implements View.OnClick
     }
 
     private void getQuestionDetails(){
-        String jsonText="";
         BufferedReader bufferefReader;
         try {
-            InputStream is = this.getResources().openRawResource(R.raw.questions);
+            InputStream is = this.getResources().openRawResource(R.raw.questions_lsns_6);
             bufferefReader = new BufferedReader(new InputStreamReader(is));
             String line = bufferefReader.readLine();
             Question question = new Question();
@@ -79,6 +90,7 @@ public class ActivityQuestions extends AppCompatActivity implements View.OnClick
             Log.i(TAG, "Problem reading file: " + e.getMessage());
         }
         scoreTracking = new int[questionList.size()];
+        Arrays.fill(scoreTracking, -1);
     }
 
     public void btnClickedLoadPrevQuestion(View view) {
@@ -125,17 +137,43 @@ public class ActivityQuestions extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         scoreTracking[questionCount] = v.getId();
-        Log.i(TAG, "Selected OPT: " + currentScore);
     }
 
     private void submitScores() {
-        String s = "";
+        int s = 0;
+        boolean answeredAllQs = true;
         for(int i : scoreTracking) {
-            s += String.valueOf(i);
+            if(i == -1){
+                answeredAllQs = false;
+                break;
+            }
+            s += i;
         }
         Log.i(TAG, "Scores: " + s);
+        if(!answeredAllQs){
+            Toast.makeText(this, "You have not answered all questions. Please answer all questions to continue.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Score :: " + s, Toast.LENGTH_LONG).show();
+            // TODO :: seperate out cases for other ranges of scores
+            if(s <= 15) {
+                (new SendDataToServer(this, constructPacket(1))).sendEmotionCode();
+            }
+            // TODO :: Uncomment later
+            finish();
+        }
+    }
 
-        // TODO :: Uncomment later
-        finish();
+    private String constructPacket(int emotCode) {
+        String packet = "{";
+        packet = packet + "\"id\":" + "1,";
+        packet = packet + "\"name\":\"" + spControl.getData(Constants.SP_KEY_MY_UNAME) + "\",";
+        packet = packet + "\"phoneNumber\":\"" + "9876543214" + "\",";
+        switch (emotCode) {
+            case 1:
+                packet = packet + "\"status\":\"" + "sad" + "\"";
+                break;
+        }
+        packet = packet + "}";
+        return packet;
     }
 }
