@@ -26,8 +26,10 @@ import androidx.core.content.ContextCompat;
 
 import com.example.collectdata.bean.weather.Weather;
 import com.example.collectdata.collectappusagedata.CollectAppUsageDBHandler;
+import com.example.collectdata.collectcallusagedata.CollectCallDataDBHandler;
 import com.example.collectdata.db.DBHelper;
 import com.example.collectdata.ml.arma.ARMA_AppUsageData;
+import com.example.collectdata.ml.arma.ARMA_CallUsageData;
 import com.example.collectdata.services.foreground.ForegroundDataCollection;
 import com.example.collectdata.services.network.SendDataToServer;
 import com.example.collectdata.sharedpref.SharedPreferenceControl;
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     };
     Intent intentService;
     CollectAppUsageDBHandler collectAppUsageDBHandler;
+    CollectCallDataDBHandler callDataDBHandler;
+
     // Widgets
     private Button btnStart, btnStop;
     private SensorManager sensorManager;
@@ -143,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
         // SharedPreference
         spController = new SharedPreferenceControl(context);
+
+        callDataDBHandler = new CollectCallDataDBHandler(context);
 
         textViewWelcome = findViewById(R.id.textViewWelcome);
         textViewWelcome.setText("Welcome, " + spController.getData(Constants.SP_KEY_MY_UNAME) + "!");
@@ -283,8 +289,11 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO :: Just for demo
     public void onClickBtnTrainModel(View v) {
-        ARMA_AppUsageData arma = new ARMA_AppUsageData(this, Constants.RESOLUTION_4);
-        arma.startARMACalc();
+        ARMA_AppUsageData arma_appUsageData = new ARMA_AppUsageData(this, Constants.RESOLUTION_4);
+        arma_appUsageData.startARMACalc();
+
+        ARMA_CallUsageData arma_callUsageData = new ARMA_CallUsageData(this, Constants.RESOLUTION_24);
+        arma_callUsageData.startARMACalc();
     }
 
     // TODO :: Just for demo
@@ -322,7 +331,38 @@ public class MainActivity extends AppCompatActivity {
                 showAfterForecastDialogue();
                 break;
             }
+        }
+        if(goToQs)
+            return;
 
+        // TODO :: Forecast the call usage data
+        data = callDataDBHandler.getCallModelIntercepts().split(";");
+        t0 = Double.parseDouble(data[0]);
+        t1 = Double.parseDouble(data[1]);
+        St.clear();
+
+        for (int j = 2; j < data.length; j++)
+            St.add(Double.parseDouble(data[j]));
+
+        tmpData = callDataDBHandler.getCallLogUsageForLast120Days();
+        t = tmpData.size();
+        forecast = St.get(t % Constants.RESOLUTION_24) * (t0 + (t1 * t));
+        if(forecast <= 0)
+            forecast = 0;
+        try {
+            actual = tmpData.get(tmpData.size() - 1);
+            if (Math.abs((forecast - actual) / actual) > Constants.DEVIATION_THRESH) {
+//                Log.i("ollo", "Codes : " + i + " => Actual : " + actual);
+//                Log.i("ollo", "Codes : " + i + " => Forecast : " + forecast);
+//                Log.i("ollo", "-------------------------------------------");
+                goToQs = true;
+            }
+        } catch (Exception e) {
+            goToQs = false;
+        }
+        if(goToQs) {
+            showAfterForecastDialogue();
+            return;
         }
     }
 

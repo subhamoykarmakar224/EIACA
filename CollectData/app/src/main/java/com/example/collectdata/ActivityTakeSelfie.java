@@ -71,11 +71,15 @@ public class ActivityTakeSelfie extends AppCompatActivity {
         try {
             predictFaceEmotion = new PredictFaceEmotion(this);
             predictions = predictFaceEmotion.recognizeImage(imageBitmap, 0);
-            Log.i("ollo", "==================================");
-            for(Recognition r : predictions) {
-                Log.i("ollo", "Prediction :: " + r.getName() + " = " + r.getConfidence());
+            if(predictions.size() <= 0) {
+            } else {
             }
-            Log.i("ollo", "==================================");
+//            Log.i("ollo", "==================================");
+//            for(Recognition r : predictions) {
+//                Log.i("ollo", "Prediction :: " + r.getName() + " = " + r.getConfidence());
+//            }
+//            Log.i("ollo", "==================================");
+            finish();
         } catch (IOException e) {
             Log.i("ollo", "Error :: " + e.getMessage());
         }

@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,9 +104,9 @@ public class PredictFaceEmotion {
     public List<Recognition> recognizeImage(final Bitmap bitmap, final int sensorOrientation) {
         List<Recognition> recognitions = new ArrayList<>();
 
+        try {
 
-
-        inputImageBuffer = loadImage(bitmap, sensorOrientation);
+            inputImageBuffer = loadImage(bitmap, sensorOrientation);
 //        byte[] pixels = ((DataBufferByte) inputImageBuffer.getRaster().getDataBuffer()).getData();
 //        int cnt = 0;
 //        String s = "";
@@ -115,20 +116,25 @@ public class PredictFaceEmotion {
 //        }
 //        Log.i("ollo", "Pixels: " + s);
 
-        Log.i("ollo", "Image Size: " + inputImageBuffer.getBuffer().toString());
-        Log.i("ollo", "Image Size: " + probabilityImageBuffer.getBuffer().toString());
-        Log.i("ollo", "Image Size: " + probabilityImageBuffer.getBuffer().rewind());
-        tensorClassifier.run(inputImageBuffer.getBuffer(), probabilityImageBuffer.getBuffer().rewind());
-        Map<String, Float> labelledProbability = new TensorLabel(
-                labels, probabilityProcessor.process(probabilityImageBuffer)
-        )
-                .getMapWithFloatValue();
-        for(Map.Entry<String, Float> entry : labelledProbability.entrySet()) {
-            recognitions.add(new Recognition(entry.getKey(), entry.getValue()));
-        }
+            Log.i("ollo", "Image Size: " + inputImageBuffer.getBuffer().toString());
+            Log.i("ollo", "Image Size: " + probabilityImageBuffer.getBuffer().toString());
+            Log.i("ollo", "Image Size: " + probabilityImageBuffer.getBuffer().rewind());
+            tensorClassifier.run(inputImageBuffer.getBuffer(), probabilityImageBuffer.getBuffer().rewind());
 
-        Collections.sort(recognitions);
-        recognitions.subList(0, MAX_SIZE > recognitions.size() ? recognitions.size() : MAX_SIZE).clear();
+            Map<String, Float> labelledProbability = new TensorLabel(
+                    labels, probabilityProcessor.process(probabilityImageBuffer)
+            )
+                    .getMapWithFloatValue();
+
+            for (Map.Entry<String, Float> entry : labelledProbability.entrySet()) {
+                recognitions.add(new Recognition(entry.getKey(), entry.getValue()));
+            }
+
+            Collections.sort(recognitions);
+            recognitions.subList(0, MAX_SIZE > recognitions.size() ? recognitions.size() : MAX_SIZE).clear();
+        } catch(Exception e) {
+            return recognitions;
+        }
         return recognitions;
     }
 

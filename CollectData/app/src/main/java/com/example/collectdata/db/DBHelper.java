@@ -96,13 +96,22 @@ public class DBHelper extends SQLiteOpenHelper {
                 Constants.KEY_NOTIFICATION_DATE + " TEXT " +
                 ")";
 
+        final String SQL_CREATE_CALL_LOG_ML_MODEL = "CREATE TABLE IF NOT EXISTS " +
+                Constants.TABLE_CALL_LOG_ML_MODEL + "( " +
+                Constants.KEY_CALL_LOG_HR + " INT PRIMARY KEY AUTOINCREMENT, " +
+                Constants.KEY_CALL_LOG_THETA0 + " short, " +
+                Constants.KEY_CALL_LOG_THETA1 + " short, " +
+                Constants.KEY_CALL_LOG_SESSIONAL + " TEXT " +
+                ")";
+
         db.execSQL(SQL_CREATE_UNIQUE_APPS);
         db.execSQL(SQL_CREATE_DATA_TABLE);
         db.execSQL(SQL_CREATE_APP_USAGE);
         db.execSQL(SQL_CREATE_ACTIVITY_LVL);
         db.execSQL(SQL_CREATE_APP_HR);
         db.execSQL(SQL_CREATE_CALL_LOG);
-        db.execSQL(SQL_CREATE_NOTIFICATION);
+        db.execSQL(SQL_CREATE_CALL_LOG_ML_MODEL);
+//        db.execSQL(SQL_CREATE_NOTIFICATION);
     }
 
     @Override
@@ -113,7 +122,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_ACTIVITY);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_APP_HR);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_CALL_HISTORY);
-        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_NOTIFICATION);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_CALL_LOG_ML_MODEL);
+//        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_NOTIFICATION);
         onCreate(db);
     }
 }

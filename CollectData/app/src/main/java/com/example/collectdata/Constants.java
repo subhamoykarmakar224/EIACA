@@ -10,6 +10,7 @@ public class Constants {
     public static final String NOTIFICATION_CHANNEL_ID = "ForegroundServiceChannelDataCollection";
 
     public static final int RESOLUTION_4 = 4;
+    public static final int RESOLUTION_24 = 24;
     public static final double DEVIATION_THRESH = 0.4;
 
     public static final int DATA_COLLECT_SERVICE_ID = 188;
@@ -26,6 +27,9 @@ public class Constants {
     public static final String SP_KEY_CALL_LOG_FIRST_RUN = "calllogfirstrun";
     public static final String SP_KEY_MOST_RECENT_CALL_LOG_DATE = "mostrecentcalllog";
     public static final String SP_KEY_CURRENT_ACTIVITY = "currentactivitycode";
+    public static final String SP_KEY_CALL_LOG_T0 = "callt0";
+    public static final String SP_KEY_CALL_LOG_T1 = "callt1";
+    public static final String SP_KEY_CALL_LOG_SESS = "callsessional";
 
     // Activity Tracker Constants
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
@@ -106,6 +110,12 @@ public class Constants {
     public static final String KEY_CALL_HISTORY_TIME = "calltimerange"; // start time with range of 1 hour
     public static final String KEY_CALL_HISTORY_DURATION = "duration"; // duration of call in that seconds
 
+    public static final String TABLE_CALL_LOG_ML_MODEL = "CallHistoryDurations";
+    public static final String KEY_CALL_LOG_HR = "hr";
+    public static final String KEY_CALL_LOG_THETA0 = "theta0"; // start time with range of 1 hour
+    public static final String KEY_CALL_LOG_THETA1 = "theta1"; // duration of call in that seconds
+    public static final String KEY_CALL_LOG_SESSIONAL = "St"; // duration of call in that seconds
+
     public static final String TABLE_NOTIFICATION = "Notification";
     public static final String KEY_NOTIFICATION_UNAME = "uname";
     public static final String KEY_NOTIFICATION_DATE = "date";
@@ -134,6 +144,6 @@ public class Constants {
     public static final String WEATHER_NOW_API="current.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&aqi=no";
     public static final String WEATHER_DAILY_HOURLY_FORECAST_API="forecast.json?key=" + WEATHER_API_KEY + "&q=" + WEATHER_API_REPLACE_STR + "&days=1&aqi=no&alerts=no";
 
-    public static final String URI_API_PRODUCER ="http://192.168.1.5:8091/produce/message";
-    public static final String URI_API_CONSUMER="http://192.168.1.5:8091/consume/message";
+    public static final String URI_API_PRODUCER ="http://192.168.1.113:8091/produce/message";
+    public static final String URI_API_CONSUMER="http://192.168.1.113:8091/consume/message";
 }

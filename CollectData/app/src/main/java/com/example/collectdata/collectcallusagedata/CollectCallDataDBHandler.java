@@ -5,12 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.Nullable;
+
 import com.example.collectdata.Constants;
 import com.example.collectdata.bean.AppUsageData;
 import com.example.collectdata.bean.CallHistory;
 import com.example.collectdata.db.DBHelper;
+import com.example.collectdata.sharedpref.SharedPreferenceControl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,5 +82,40 @@ public class CollectCallDataDBHandler {
         SQLiteDatabase db = DBHelper.getInstance(context).getReadableDatabase();
         Cursor c = db.rawQuery("select count(*) from " + Constants.TABLE_CALL_HISTORY, null);
         return c.getCount();
+    }
+
+    public List<Double> getCallLogUsageForLast120Days() {
+        List<Double> uniquePkgCodes = new ArrayList<>();
+        SQLiteDatabase db = DBHelper.getInstance(context).getReadableDatabase();
+        Cursor c = db.rawQuery(
+                "select " + Constants.KEY_CALL_HISTORY_DURATION + " from " + Constants.TABLE_CALL_HISTORY +
+                        " order by " + Constants.KEY_CALL_HISTORY_DATE + " desc limit 120"
+                , null);
+        while(c.moveToNext()) {
+            uniquePkgCodes.add(Double.parseDouble(String.valueOf(c.getLong(0))));
+        }
+        return uniquePkgCodes;
+    }
+
+    private String getStartTimeDate(@Nullable int timeDelta) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, timeDelta);
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        return s.format(new Date(cal.getTimeInMillis()));
+    }
+
+    public void updateCallModelIntercepts(double theta0, double theta1, String ssst) {
+        SharedPreferenceControl spControl = new SharedPreferenceControl(context);
+        spControl.setData(Constants.SP_KEY_CALL_LOG_T0, String.valueOf(theta0));
+        spControl.setData(Constants.SP_KEY_CALL_LOG_T1, String.valueOf(theta1));
+        spControl.setData(Constants.SP_KEY_CALL_LOG_SESS, String.valueOf(ssst));
+    }
+
+    public String getCallModelIntercepts() {
+        String data = "";
+        SharedPreferenceControl spControl = new SharedPreferenceControl(context);
+        data = spControl.getData(Constants.SP_KEY_CALL_LOG_T0) + ";" + spControl.getData(Constants.SP_KEY_CALL_LOG_T1) +
+                spControl.getData(Constants.SP_KEY_CALL_LOG_SESS);
+        return data;
     }
 }
