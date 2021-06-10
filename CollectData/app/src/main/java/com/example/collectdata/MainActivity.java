@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         // Chech if GPS Package usage enabled
         enablePackageUsagePermission();
 
-        consumeMessageFromBackEnd();
+//        consumeMessageFromBackEnd();
     }
 
     /**

@@ -30,6 +30,7 @@ public class Constants {
     public static final String SP_KEY_CALL_LOG_T0 = "callt0";
     public static final String SP_KEY_CALL_LOG_T1 = "callt1";
     public static final String SP_KEY_CALL_LOG_SESS = "callsessional";
+    public static final String SP_KEY_NOTIF_CONSUMER = "notif";
 
     // Activity Tracker Constants
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
@@ -119,7 +120,6 @@ public class Constants {
     public static final String TABLE_NOTIFICATION = "Notification";
     public static final String KEY_NOTIFICATION_UNAME = "uname";
     public static final String KEY_NOTIFICATION_DATE = "date";
-
 
     static final Hashtable<String, Integer> POSTURE_VALS = new Hashtable<>();
 

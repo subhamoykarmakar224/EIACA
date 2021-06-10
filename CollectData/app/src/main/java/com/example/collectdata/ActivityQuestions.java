@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class ActivityQuestions extends AppCompatActivity implements View.OnClickListener {
@@ -168,6 +169,7 @@ public class ActivityQuestions extends AppCompatActivity implements View.OnClick
         packet = packet + "\"id\":" + "1,";
         packet = packet + "\"name\":\"" + spControl.getData(Constants.SP_KEY_MY_UNAME) + "\",";
         packet = packet + "\"phoneNumber\":\"" + "9876543214" + "\",";
+        packet = packet + "\"dateTime\":\"" + String.valueOf(new Date()) + "\",";
         switch (emotCode) {
             case 1:
                 packet = packet + "\"status\":\"" + "sad" + "\"";
